@@ -2,12 +2,14 @@ package br.com.jcavitreinamentos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +33,9 @@ public class Professor implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+
+	@ManyToMany(targetEntity = br.com.jcavitreinamentos.model.Curso.class)
+	private Set curso;
 
 	public Professor() {
 
@@ -78,15 +83,28 @@ public class Professor implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the curso
+	 */
+	public Set getCurso() {
+		return curso;
+	}
+
+	/**
+	 * @param curso the curso to set
+	 */
+	public void setCurso(Set curso) {
+		this.curso = curso;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Professor [id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + "]";
 	}
-
-
-	
 
 }
