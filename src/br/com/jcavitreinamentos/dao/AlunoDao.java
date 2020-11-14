@@ -1,6 +1,10 @@
 package br.com.jcavitreinamentos.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import br.com.jcavitreinamentos.conexao.Conexao;
 import br.com.jcavitreinamentos.interfaces.IAlunoDao;
@@ -33,13 +37,13 @@ public class AlunoDao extends Conexao implements IAlunoDao {
 
 	@Override
 	public void atualizar(Aluno aluno) throws Exception {
-		
+
 		em.getTransaction().begin();
 		Aluno c = aluno;
 		em.getTransaction().commit();
 		em.clear();
 		em.close();
-		
+
 	}
 
 	@Override
@@ -49,7 +53,18 @@ public class AlunoDao extends Conexao implements IAlunoDao {
 		em.remove(aluno);
 		em.getTransaction().commit();
 		em.close();
-		
+
+	}
+
+	@Override
+	public List<Aluno> getAlunos() throws Exception {
+
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT e from Aluno e");
+		List<Aluno> alunos = new ArrayList<>();
+		alunos = query.getResultList();
+
+		return alunos;
 	}
 
 }
